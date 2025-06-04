@@ -1,0 +1,55 @@
+    <!-- Modal -->
+    <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white w-11/12 max-w-4xl p-6 rounded shadow-lg" @click.outside="showModal = false">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Tambah Materi</h2>
+                <button @click="showModal = false" class="text-gray-500 hover:text-red-600 text-xl">×</button>
+            </div>
+
+            <form action="/pamong/tabelmateri/tambah" method="POST">
+                @csrf
+                <table class="w-full table-auto text-sm mb-4">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-2">Nama Materi</th>
+                            <th class="p-2">Mata Pelajaran</th>
+                            <th class="p-2">Kelas</th>
+                            <th class="p-2">Opsi</th>
+                        </tr>
+                    </thead>
+                    <tbody x-data="{ rows: [0] }">
+                        <template x-for="(row, index) in rows" :key="index">
+                            <tr>
+                                <td class="p-2"><input type="text" name="materi[index][nama_materi]" class="border rounded w-full px-2 py-1" required></td>
+                                <td class="p-2">
+                                    <select name="materi[index][mapel]" class="border rounded w-full px-2 py-1">
+                                        <option value="">Pilih</option>
+                                        @foreach($mapel as $m)
+                                            <option value="{{ $m->id_mapel }}">{{ $m->mapel }}</option>
+                                        @endforeach
+                                        <!-- Tambahkan sesuai data -->
+                                    </select>
+                                </td>
+                                <td class="p-2">
+                                    <select name="materi[index][kelas]" class="border rounded w-full px-2 py-1">
+                                        <option value="">Pilih</option>
+                                        @foreach($kelas as $k)
+                                            <option value="{{ $k->id_kelas }}">{{ $k->kelas }}</option>
+                                        @endforeach
+                                        <!-- Tambahkan sesuai data -->
+                                    </select>
+                                </td>
+                                <td class="p-2 text-center">
+                                    <button type="button" @click="rows.splice(index, 1)" class="bg-red-500 text-white px-2 py-1 rounded">🗑️</button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" @click="showModal = false" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>

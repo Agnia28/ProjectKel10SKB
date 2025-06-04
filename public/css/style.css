@@ -1,0 +1,30 @@
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+}
+ 
+.table-scroll {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+}
+ 
+/* Tambahkan garis bawah untuk membedakan scrollbar */
+.table-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+ 
+.table-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+ 
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+ 
+.table-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
